@@ -13,7 +13,7 @@ const store = useStore()
 const active = ref('home')
 const vAdmin = {
     mounted(el) {
-        if (store.userInfo.role !== 1) {
+        if (!(store.permissions.includes('user:C'))) {
             el.parentNode.removeChild(el)
         }
     }

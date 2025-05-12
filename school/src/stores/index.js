@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useStore = defineStore('main', {
   state: () => ({
+    permissions: [],
     isGetterRouter: false,
     userInfo: {},
     token: '',
@@ -14,12 +15,17 @@ export const useStore = defineStore('main', {
     changeUserInfo(value) {
       this.userInfo = { ...this.userInfo, ...value }
     },
-    clearUserInfo() {
+    logout() {
       this.userInfo = {},
-      this.token = '';
+      this.permissions = []
+      this.hasLoadedRoutes = false
+      localStorage.removeItem('token')
     },
     setToken(token) {
       this.token = token;
+    },
+    setPermissions(perms) {
+      this.permissions = perms
     },
     changeGetterRouter(){
       this.isGetterRouter = !this.isGetterRouter
@@ -30,7 +36,7 @@ export const useStore = defineStore('main', {
     enabled: true,
     strategies: [{
       key: 'mainStore',
-      paths: ['userInfo','token'],
+      paths: ['userInfo','token','permissions'],
     }], // <- HERE
   },
 })

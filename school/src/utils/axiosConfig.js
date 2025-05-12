@@ -9,9 +9,13 @@ axios.interceptors.request.use(function(config){
 })
 
 axios.interceptors.response.use(function(response){
-    console.log(response.headers)
-    const {authorization} = response.headers
-    authorization && localStorage.setItem("token",authorization)
+    const headerAuth = response.headers['authorization'];
+    console.log(headerAuth)
+    if (headerAuth) {
+      // 去掉一次 Bearer 前缀
+      const token = headerAuth.replace(/^Bearer\s*/, '');
+      localStorage.setItem('token', token);
+    }
     return response
 },function(error){
     const {status} = error.response

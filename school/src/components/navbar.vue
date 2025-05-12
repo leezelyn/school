@@ -14,7 +14,7 @@ const router = useRouter()
 const onClickLeft = () => history.back()
 const handleLogout= ()=>{
     localStorage.removeItem("token")
-    store.clearUserInfo()
+    store.logout()
     router.push("/login")
 }
 </script>

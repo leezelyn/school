@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="canViewCourses">
         <van-cell-group inset>
             <van-tag type="danger">进行</van-tag>
             <van-cell title="课表查询" value="进入" label="入口已开放" is-link @click="goCourses"/>
@@ -24,9 +24,11 @@ const router = useRouter()
 
 const store = useStore()
 const goCourses = () => {
-  console.log("11")
   router.push('/courses')
 }
+const canViewCourses = computed(() =>
+  store.permissions.includes('timetable:R')
+)
 
 
 

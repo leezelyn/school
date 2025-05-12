@@ -145,13 +145,10 @@ const submit = async () => {
   // 根据 picker 文本映射出数字参数
   const day    = weekColumns.findIndex(w => w.value === currentWeekday.value.value) + 1;
   const period = periodColumns.findIndex(p => p.value === currentPeriod.value.value) + 1;
-
+  
   try {
     const res = await axios.get('/api/timetable/avail', {
       params: { day, period },
-      headers: {
-        Authorization: `Bearer ${store.token}`,
-      },
     });
     freeTeachers.value = res.data;
     console.log(res.data)

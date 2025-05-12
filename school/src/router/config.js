@@ -32,12 +32,13 @@ const routes = [
   {
     path: '/activity',
     name: 'activity',
-    component: Activity
+    component: Activity,
   },
   {
     path: '/courses',
     name: 'courses',
-    component: Courses
+    component: Courses,
+    meta: { permission: { resource: 'timetable', action: 'R' }}
   },
   {
     path: '/:pathMatch(.*)*',
@@ -48,7 +49,7 @@ const routes = [
     path: '/manage',
     name: 'manage',
     component: Manage,
-    requireAuth: true
+    meta: { permission: { resource: 'user', action: 'C' }}
   },
   {
     path: '/center',
@@ -59,79 +60,66 @@ const routes = [
     path: '/manage/userlist',
     name: 'userlist',
     component: UserList,
-    requireAuth: true
   },
   {
     path: '/manage/checklist',
     name: 'checklist',
     component: CheckList,
-    requireAuth: true
   },
   {
     path: '/manage/mealslist',
     name: 'mealslist',
     component: mealsList,
-    requireAuth: true
   },
   {
     path: '/manage/studentlist',
     name: 'studentlist',
     component: StudentList,
-    requireAuth: true
   },
   {
     path: '/manage/records',
     name: 'record',
     component: Record,
-    requireAuth: true
   },
   {
     path: '/manage/addrecord',
     name: 'addrecord',
     component: AddRecord,
-    requireAuth: true
   },
   {
     path: '/manage/adduser',
     name: 'adduser',
     component: AddUser,
-    requireAuth: true
   },
   {
     path: '/manage/edituser/:id',
     name: 'edituser',
     component: editUser,
-    requireAuth: true
   },
   {
     path: '/manage/homework',
     name: 'homework',
     component: Homework,
-    requireAuth: true
   },
   {
     path: '/manage/reference',
     name: 'reference',
     component: Reference,
-    requireAuth: true
   },
   {
     path: '/manage/editrecord/:id',
     name: 'editrecord',
     component: EditRecord,
-    requireAuth: true
   },
   {
     path: '/manage/addstudent',
     name: 'addstudent',
     component: addStudent,
-    requireAuth: true
   },
   {
     path: '/manage/studentdetail',
     name: 'studentdetail',
     component: studentDetail,
-    requireAuth: true
   },
 
   {

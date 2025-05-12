@@ -59,20 +59,34 @@
       const body = res.data;
       if (body.ActionType === 'ok') {
         showToast('登入成功');
-        const token =
-          res.headers['authorization']?.replace(/^Bearer\s*/, '') ||
-          body.token ||
-          '';
-        store.setToken(token);
-        store.changeUserInfo(body.user);
-        router.push('/home');
-      } else {
-        showToast('登入失败，请检查账号密码');
-      }
+    // 1. 拿 token（优先从 header，header 不存在就 fallback 到 body.data.token）
+    const headerAuth = res.headers['authorization'];
+    const token = headerAuth
+      ? headerAuth.replace(/^Bearer\s*/, '')
+      : (body.data.token || '');
+
+    // 2. 存 Token
+    store.setToken(token);
+
+    // 3. 拿到后端返回的 user 和 permissions
+    const { result, permissions } = body.data;
+
+    // 4. 存用户信息 & 权限列表
+    store.changeUserInfo(result);
+    store.setPermissions(permissions);
+
+    // 5. 跳转主页
+    router.push('/home');
+  } else {
+    showToast(body.message || '登录失败，请检查用户名或密码');
+  }
     } catch (err) {
-      console.error(err);
-      showToast('请求失败，请稍后重试');
-    }
+    console.error(err);
+    showToast(
+    err.response?.data?.message || '请求失败，请稍后重试'
+    );
+  }
+
   }
   </script>
   
